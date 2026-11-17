@@ -1,6 +1,6 @@
 # Explicación del método numérico
 
-> **Estado: completo para el alcance del método FTCS y la implementación Python revisada.** No documenta una implementación C++ todavía no disponible.
+> **Estado: fundamento FTCS documentado para Python y C++.** El código C++ incorpora OpenMP; la validación cruzada y las mediciones de rendimiento permanecen pendientes.
 
 ## 1. Modelo físico
 
@@ -38,7 +38,7 @@ El método FTCS es explícito: el valor nuevo depende solo del estado anterior. 
 2. Crear `Tp = T.copy()` y calcular los coeficientes.
 3. Para cada paso, recorrer solamente los índices interiores `1..M-1`.
 4. Calcular `Tp` leyendo exclusivamente `T`.
-5. Copiar `Tp` a `T` y guardar instantáneas seleccionadas.
+5. Copiar `Tp` a `T` y guardar instantáneas seleccionadas. La implementación C++ también utiliza esta copia completa; un intercambio de búferes sería una optimización futura.
 6. Dibujar mapas mediante `contourf`.
 
 El doble búfer evita modificar valores que aún se requieren en la misma iteración. El costo temporal es $O(N_t M^2)$ y el almacenamiento $O(M^2)$ para dos estados y cuatro instantáneas. En la configuración actual, son 54 150 000 actualizaciones interiores por caso. Dos matrices de 441 valores `float64` ocupan 7056 bytes; las cuatro instantáneas ocupan 14112 bytes, sin contar objetos y figuras.
@@ -46,3 +46,7 @@ El doble búfer evita modificar valores que aún se requieren en la misma iterac
 ## 5. Validación
 
 Una solución analítica con fronteras cero es $u(x,y,t)=\sin(\pi x)\sin(\pi y)e^{-2\pi^2\kappa t}$ sobre el cuadrado unitario. Permite cuantificar error y convergencia. Se incluye una comprobación independiente en `scripts/validar_calor.py`; consultar [resultados](resultados_falta.md). No estaba implementada en `heat.py` original.
+
+## 6. Implementación C++ y paralelismo
+
+El 13 de noviembre Eytan incorporó `heat.cpp`, `heat.exe` y los resultados CSV. La versión C++ utiliza matrices `std::vector<std::vector<double>>`, el mismo esquema explícito de cinco puntos y los mismos parámetros y tiempos observados en Python. Los nodos interiores se calculan con `#pragma omp parallel for collapse(2)`; otra región paralela guarda las instantáneas. El archivo `omp.h` y las directivas verifican el uso de la interfaz OpenMP en el código, pero no demuestran una mejora de tiempo sin mediciones comparativas. Los resultados y pendientes se detallan en [paralelismo](paralelismo_falta.md) y [resultados](resultados_falta.md).

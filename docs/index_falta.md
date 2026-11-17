@@ -1,6 +1,6 @@
 # Proyecto I: ecuación de calor en dos dimensiones
 
-> **Estado: borrador — falta información.** Confirmar estado final de C++, paralelismo y documentación web. Renombrar a `index.md` al cerrar estos pendientes.
+> **Estado: en actualización.** C++ y OpenMP están incorporados; faltan mediciones de rendimiento y configuración definitiva del sitio web. Renombrar a `index.md` cuando se cierren los pendientes.
 
 **FS-0432 — Física Computacional, Universidad de Costa Rica**
 
@@ -10,8 +10,8 @@
 |---|---|---|
 | Fernando Rodríguez Blanco | C26548 | Python |
 | Orlando Ismael Benavides Renault | C11025 | Markdown, README, reporte y bitácora |
-| Samuel Rojas Baldi | C36852 | YAML, scripts y CSV |
-| Eytan Sequeira Mora | C07458 | C++ |
+| Samuel Rojas Baldi | C36852 | YAML, scripts y documentación web |
+| Eytan Sequeira Mora | C07458 | C++, ejecutable y CSV |
 
 ## Objetivo
 
@@ -30,4 +30,4 @@ Simular la distribución de temperatura en una placa y documentar el método, im
 | [Paralelismo](paralelismo_falta.md) | Plan C++/OpenMP y protocolo de medición |
 | [Reporte](reporte_falta.md) | Síntesis académica |
 
-El proyecto se encuentra en desarrollo. Se separa la evidencia del repositorio original de las propuestas y pruebas nuevas.
+El proyecto se encuentra en desarrollo. `heat.py`, `heat.cpp`, `heat.exe` y los dos CSV de resultados están publicados en `main`; la [bitácora](bitacora_falta.md) registra sus commits. Se separan los resultados disponibles de las pruebas de rendimiento y las propuestas todavía no ejecutadas.
